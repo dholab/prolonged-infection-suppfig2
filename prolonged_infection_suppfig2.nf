@@ -92,10 +92,7 @@ process REFORMAT_METADATA {
 	script:
 	"""
 	dataformat tsv virus-genome \
-	--fields accession,bioprojects,biosample-acc,geo-location,geo-region,\
-	host-organism-name,isolate-collection-date,length,nucleotide-completeness,\
-	release-date,sourcedb,sra-accs,virus-pangolin,virus-strain,virus-tax-id \
-	--inputfile ${jsonl}
+	--fields accession,bioprojects,biosample-acc,geo-location,geo-region,host-organism-name,isolate-collection-date,length,nucleotide-completeness,release-date,sourcedb,sra-accs,virus-pangolin,virus-strain,virus-tax-id --inputfile ${jsonl} > sarscov2-metadata.tsv
 	"""
 	
 }
@@ -125,6 +122,8 @@ process SELECT_SUBSAMPLE {
 process PULL_FASTAS {
 	
 	tag "${accession}"
+	
+	cpus 1
 	
 	input:
 	val(accession)

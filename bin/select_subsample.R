@@ -9,6 +9,7 @@ keepers <- sample(rownames(full_list),
                  sample_size, 
                  replace = FALSE)
 
-include_list <- full_list[keepers, "accession"]
+include_list <- full_list[keepers, "Accession"]
 
-write.csv(include_list, file = "include_list.csv", quote = F, row.names = F)
+write.csv(include_list, file = "include_list.csv", 
+          quote = F, row.names = F)

@@ -16,6 +16,7 @@ dependencies:
   - r-rcolorbrewer
   - pangolin
   - sra-tools=2.10.1
+  - ncbi-datasets-cli=13.31.0
   - minimap2=2.24
   - samtools=1.14
   - bbmap=38.93
