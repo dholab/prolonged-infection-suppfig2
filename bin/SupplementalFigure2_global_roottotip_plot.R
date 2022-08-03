@@ -25,8 +25,9 @@ args = commandArgs(trailingOnly=TRUE)
 
 ### PREPARING THE ENVIRONMENT ####
 library(tidyverse)
-data_filepath = args[1]  ### OR INSERT YOUR FILE PATH HERE ###
-setwd(data_filepath)
+workingdir = args[1]  ### OR INSERT YOUR FILE PATH HERE ###
+metadata_filepath = args[2]
+setwd(workingdir)
 
 patient_day0 <- as.Date("2020-12-21")-113
 
@@ -36,8 +37,8 @@ if (length(list.files(getwd(), "*.vcf"))>0){
   
   vcf_list <- list.files(getwd(), "*.vcf")
   vcf_list <- sort(vcf_list)
-  genbank_meta <- read.delim("b12_enriched_global_subsampled_metadata.tsv")
-  genbank_meta <- genbank_meta[order(genbank_meta$strain),] ; rownames(genbank_meta) <- NULL
+  genbank_meta <- read.csv(metadata_filepath)
+  genbank_meta <- genbank_meta[order(genbank_meta$accession),] ; rownames(genbank_meta) <- NULL
   genbank_meta$date <- as.Date(genbank_meta$date)
   distances <- data.frame("sample" = rep(NA, times = length(vcf_list)),
                           "distance" = rep(NA, times = length(vcf_list)),
@@ -47,7 +48,7 @@ if (length(list.files(getwd(), "*.vcf"))>0){
   
   for (i in 1:length(vcf_list)){
     
-    print(paste("Importing and processing", vcf_list[i], sep = " "))
+    # print(paste("Importing and processing", vcf_list[i], sep = " "))
     
     vcf <- read.delim(paste(getwd(), vcf_list[i], sep = "/"), skip = 55)
     vcf <- vcf[str_length(vcf$REF)==1,] # filtering to insertions and substitutions only
@@ -60,11 +61,11 @@ if (length(list.files(getwd(), "*.vcf"))>0){
     distances[i, "distance"] <- nrow(vcf)
     distances[i, "date"] <- as.Date(genbank_meta$date[i])
     distances[i, "day"] <- as.numeric(as.Date(genbank_meta$date[i]) - patient_day0)
-    distances[i, "lineage"] <- genbank_meta$Pango.lineage[i]
+    distances[i, "lineage"] <- genbank_meta$pango[i]
     
     remove(vcf)
     
-    print(paste(round((i/length(vcf_list))*100), "% of VCFs processed.", sep = ""))
+    # print(paste(round((i/length(vcf_list))*100), "% of VCFs processed.", sep = ""))
     
   }
   
@@ -79,31 +80,20 @@ if (length(list.files(getwd(), "*.vcf"))>0){
     paste("files were cleared from disk space.", sep = " ") %>%
     print()
   
-} else if (length(list.files(getwd(), "genbank_subsample_root2tip_distances")) > 0) {
-  
-  distance_tables <- list.files(getwd(), "genbank_subsample_root2tip_distances")
-  distances <- read.csv(
-    paste(getwd(), distance_tables[length(distance_tables)], sep = "/")
-  )
-  distances$date <- as.Date(distances$date)
-  genbank_meta <- read.delim("b12_enriched_global_subsampled_metadata.tsv")
-  genbank_meta <- genbank_meta[order(genbank_meta$strain),] ; rownames(genbank_meta) <- NULL
-  genbank_meta$date <- as.Date(genbank_meta$date)
-  
 } else {
   
-  print(paste("There are no VCFs or pre-processed distance tables in the current working directory, ",
+  print(paste("There are no VCFs  in the current working directory, ",
         getwd(), ", so this script cannot continue plotting.", sep = ""))
   
 }
 
 if (nrow(distances)!=nrow(genbank_meta)){
-  genbank_meta <- genbank_meta[match(distances$sample, genbank_meta$strain),]
+  genbank_meta <- genbank_meta[match(distances$sample, genbank_meta$accession),]
 }
 
 
-### IDENTIFYING PANGO LINEAGES IN GenBank SUBSAMPLE ####
-lineages <- as.data.frame(table(genbank_meta$Pango.lineage))
+### IDENTIFYING PANGO LINEAGES IN GENBANK SUBSAMPLE ####
+lineages <- as.data.frame(table(genbank_meta$pango))
 colnames(lineages) <- c("lineage", "count")
 lineages <- lineages[order(lineages$count, decreasing = T),] ; rownames(lineages) <- NULL
 # sum(lineages[1:5,"count"])/total_count # try to get at least 50% of the samples colored by lineage
@@ -126,7 +116,7 @@ lineages$label[5:nrow(lineages)] <- rep("other", times = length(lineages$label[5
 
 
 ### MOVING LINEAGE DATA INTO FASTA DF ####
-distances$lineage <- genbank_meta$Pango.lineage
+distances$lineage <- genbank_meta$pango
 distances$color <- ""
 distances$label <- ""
 for (i in 1:nrow(distances)){

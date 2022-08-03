@@ -51,12 +51,11 @@ workflow {
 		SUBSAMPLE_ALIGNMENT.out
 	)
 
-// 	SUPP_FIGURE_2_PLOTTING (
-// 		SUBSAMPLE_VARIANT_CALLING.out.collect(),
-// 		SUBSAMPLE_FILTERING.out.metadata,
-// 		ch_patient_counts,
-// 		ch_palette
-// 	)
+	SUPP_FIGURE_2_PLOTTING (
+		SUBSAMPLE_VARIANT_CALLING.out.collect(),
+		ch_patient_counts,
+		ch_palette
+	)
 
 }
 
@@ -205,28 +204,27 @@ process SUBSAMPLE_VARIANT_CALLING {
 }
 
 
-// process SUPP_FIGURE_2_PLOTTING {
-// 
-// 	// counts variants for each genbank sequence and plots the figure
-// 
-// 	publishDir params.visuals, pattern: "*.pdf", mode: "move"
-// 	publishDir params.results, pattern: "*.csv", mode: "move"
-// 
-// 	input:
-// 	path(vcf_list)
-// 	file(metadata)
-// 	file(mutations_counts)
-// 	path(palette)
-// 
-// 	output:
-// 	file("*.pdf")
-// 	file("*.csv")
-// 
-// 	script:
-// 	"""
-// 	SupplementalFigure2_gisaid_roottotip_plot.R "."
-// 	"""
-// 
-// }
+process SUPP_FIGURE_2_PLOTTING {
+
+	// counts variants for each genbank sequence and plots the figure
+
+	publishDir params.visuals, pattern: "*.pdf", mode: "move"
+	publishDir params.results, pattern: "*.csv", mode: "move"
+
+	input:
+	path(vcf_list)
+	file(mutations_counts)
+	path(palette)
+
+	output:
+	file("*.pdf")
+	file("*.csv")
+
+	script:
+	"""
+	SupplementalFigure2_global_roottotip_plot.R "." "${params.include}"
+	"""
+
+}
 
 
