@@ -22,3 +22,8 @@ data/*.fasta
 *.sam
 *.bam
 *.bam.bai
+.nextflow.log.*
+prolonged_infection_suppfig2_dag.png.*
+report.html.*
+trace.txt.*
+timeline.html.*

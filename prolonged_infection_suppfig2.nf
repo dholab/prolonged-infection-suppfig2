@@ -20,9 +20,9 @@ workflow {
 		.ifEmpty( 'Accessions not yet selected' )
 	
 	ch_include = Channel
-		.watchPath( params.include )
-		.take( 1 )
+		.fromPath( params.include )
 		.splitCsv ( header: true )
+		.map {row -> tuple(row.accession, row.date, row.pango)}
 	
 	
 	PULL_METADATA (	
@@ -51,12 +51,12 @@ workflow {
 		SUBSAMPLE_ALIGNMENT.out
 	)
 
-	SUPP_FIGURE_2_PLOTTING (
-		SUBSAMPLE_VARIANT_CALLING.out.collect(),
-		SUBSAMPLE_FILTERING.out.metadata,
-		ch_patient_counts,
-		ch_palette
-	)
+// 	SUPP_FIGURE_2_PLOTTING (
+// 		SUBSAMPLE_VARIANT_CALLING.out.collect(),
+// 		SUBSAMPLE_FILTERING.out.metadata,
+// 		ch_patient_counts,
+// 		ch_palette
+// 	)
 
 }
 
@@ -109,7 +109,7 @@ process REFORMAT_METADATA {
 
 process SELECT_SUBSAMPLE {
 	
-	publishDir params.refdir, mode: copy
+	publishDir params.refdir, mode: 'copy'
 	
 	when:
 	include == 'Accessions not yet selected'
@@ -123,7 +123,8 @@ process SELECT_SUBSAMPLE {
 	
 	script:
 	"""
-	select_subsample.R ${tsv} ${params.subsample_size}
+	select_subsample.R ${tsv} ${params.subsample_size} \
+	${params.min_date} ${params.max_date}
 	"""
 	
 }
@@ -136,17 +137,17 @@ process PULL_FASTAS {
 	cpus 1
 	
 	input:
-	val(accession)
+	tuple val(accession), val(date), val(pango)
 	
 	output:
 	tuple val(accession), path("*.fasta")
 	
 	script:
 	"""
-	datasets download virus genome accession ${accession} \
+	datasets download virus genome accession "${accession}" \
 	--exclude-cds --exclude-protein
 	unzip ncbi_dataset.zip
-	mv ncbi_dataset/data/genomic.fna ./${accession}.fasta
+	mv ncbi_dataset/data/genomic.fna ./"${accession}".fasta
 	rm -rf ncbi_dataset/
 	"""
 	
@@ -204,28 +205,28 @@ process SUBSAMPLE_VARIANT_CALLING {
 }
 
 
-process SUPP_FIGURE_2_PLOTTING {
-
-	// counts variants for each genbank sequence and plots the figure
-
-	publishDir params.visuals, pattern: "*.pdf", mode: "move"
-	publishDir params.results, pattern: "*.csv", mode: "move"
-
-	input:
-	path(vcf_list)
-	file(metadata)
-	file(mutations_counts)
-	path(palette)
-
-	output:
-	file("*.pdf")
-	file("*.csv")
-
-	script:
-	"""
-	SupplementalFigure2_gisaid_roottotip_plot.R "."
-	"""
-
-}
+// process SUPP_FIGURE_2_PLOTTING {
+// 
+// 	// counts variants for each genbank sequence and plots the figure
+// 
+// 	publishDir params.visuals, pattern: "*.pdf", mode: "move"
+// 	publishDir params.results, pattern: "*.csv", mode: "move"
+// 
+// 	input:
+// 	path(vcf_list)
+// 	file(metadata)
+// 	file(mutations_counts)
+// 	path(palette)
+// 
+// 	output:
+// 	file("*.pdf")
+// 	file("*.csv")
+// 
+// 	script:
+// 	"""
+// 	SupplementalFigure2_gisaid_roottotip_plot.R "."
+// 	"""
+// 
+// }
 
 
