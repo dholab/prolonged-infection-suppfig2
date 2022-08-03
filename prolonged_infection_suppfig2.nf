@@ -14,9 +14,10 @@ workflow {
 
 	ch_palette = Channel
 		.fromPath( params.color_palette )
-
-	ch_usher = Channel
-		.fromPath( params.usher_relatives )
+	
+	ch_include_check = Channel
+		.fromPath( params.include )
+		.ifEmpty( 'Accessions not yet selected' )
 	
 	ch_include = Channel
 		.watchPath( params.include )
@@ -24,13 +25,17 @@ workflow {
 		.splitCsv ( header: true )
 	
 	
-	PULL_METADATA (	)
+	PULL_METADATA (	
+		ch_include_check
+	)
 	
 	REFORMAT_METADATA (
+		ch_include_check,
 		PULL_METADATA.out
 	)
 	
 	SELECT_SUBSAMPLE (
+		ch_include_check,
 		REFORMAT_METADATA.out
 	)
 	
@@ -60,7 +65,10 @@ workflow {
 process PULL_METADATA {
 	
 	when:
-	params.include.isEmpty()
+	include == 'Accessions not yet selected'
+	
+	input:
+	val(include_check)
 	
 	output:
 	path("sarscov2-metadata.jsonl")
@@ -81,9 +89,10 @@ process REFORMAT_METADATA {
 	publishDir params.results_data_files
 	
 	when:
-	params.include.isEmpty()
+	include == 'Accessions not yet selected'
 	
 	input:
+	val(include_check)
 	path(jsonl)
 	
 	output:
@@ -103,9 +112,10 @@ process SELECT_SUBSAMPLE {
 	publishDir params.refdir, mode: copy
 	
 	when:
-	params.include.isEmpty()
+	include == 'Accessions not yet selected'
 	
 	input:
+	val(include_check)
 	path(tsv)
 	
 	output:
