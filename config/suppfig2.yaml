@@ -7,5 +7,6 @@ dependencies:
   - R
   - r-tidyverse
   - ncbi-datasets-cli
+  - unzip
   - minimap2=2.24
   - bbmap=38.93
