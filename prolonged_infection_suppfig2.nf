@@ -73,8 +73,6 @@ process PULL_METADATA {
 
 process REFORMAT_METADATA {
 	
-	publishDir params.results_data_files
-	
 	input:
 	path(metadata)
 	
@@ -112,6 +110,7 @@ process SELECT_SUBSAMPLE {
 		select_subsample.R sarscov2-metadata.tsv \
 		${params.subsample_size} ${params.min_date} ${params.max_date}
 	fi
+	rm -f sarscov2-metadata.tsv
 	"""
 	
 }
