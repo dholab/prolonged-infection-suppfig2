@@ -36,7 +36,9 @@ This workflow uses the [NextFlow](https://www.nextflow.io/) workflow manager. We
 
 To double check that the installation was successful, type `nextflow -v` into the terminal. If it returns something like `nextflow version 21.04.0.5552`, you are ready to proceed.
 
-To run the workflow, simply change into the workflow directory and run the following in the BASH terminal:
+### Running the workflow
+
+With the workflow files cloned, Docker installed, and NextFlow installed, you are ready to run the workflow. To do so, simply change into the workflow directory and run the following in the BASH terminal:
 
 ```
 nextflow run prolonged_infection_suppfig2.nf
