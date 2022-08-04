@@ -18,11 +18,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Nextflow workflow report for run id [tiny_noyce]">
+  <meta name="description" content="Nextflow workflow report for run id [reverent_kilby]">
   <meta name="author" content="Paolo Di Tommaso, Phil Ewels">
   <link rel="icon" type="image/png" href="https://www.nextflow.io/img/favicon.png" />
 
-  <title>[tiny_noyce] Nextflow Workflow Report</title>
+  <title>[reverent_kilby] Nextflow Workflow Report</title>
 
   <style type="text/css">
   /*!
@@ -137,7 +137,7 @@ table.DTCR_clonedTable.dataTable{position:absolute !important;background-color:r
         <li class="nav-item"><a class="nav-link" href="#tasks">Tasks</a></li>
       </ul>
       <span class="navbar-text">
-        [tiny_noyce]
+        [reverent_kilby]
       </span>
     </div>
   </nav>
@@ -146,65 +146,37 @@ table.DTCR_clonedTable.dataTable{position:absolute !important;background-color:r
     <div class="container">
 
       <h1 class="display-3">Nextflow workflow report</h1>
-      <h2 class="text-muted mb-4"><samp>[tiny_noyce]</samp> </h2>
+      <h2 class="text-muted mb-4"><samp>[reverent_kilby]</samp> <em>(resumed run)</em></h2>
 
       
-          <div class="alert alert-danger mb-4">
-              <h4>Workflow execution completed unsuccessfully!</h4>
-              <p>The exit status of the task that caused the workflow execution to fail was: <code>1</code>.</p>
-              <p>The full error message was:</p>
-              <pre>Error executing process > 'REFORMAT_METADATA'
-
-Caused by:
-  Process `REFORMAT_METADATA` terminated with an error exit status (1)
-
-Command executed:
-
-  if test -f /Volumes/nrm_exp1/dholk_experiments/27537/resources/include_list.csv; then
-  	cp include_list.csv .
-  else
-  	dataformat tsv virus-genome 		--fields accession,bioprojects,biosample-acc,geo-location,geo-region,host-organism-name,isolate-collection-date,length,nucleotide-completeness,release-date,sourcedb,sra-accs,virus-pangolin,virus-strain,virus-tax-id --inputfile sarscov2-metadata.jsonl > sarscov2-metadata.tsv
-  fi
-
-Command exit status:
-  1
-
-Command output:
-  (empty)
-
-Command error:
-  cp: 'include_list.csv' and './include_list.csv' are the same file
-
-Work dir:
-  /Volumes/nrm_exp1/dholk_experiments/27537/work/ba/4141481cc98334cdec8f6d2fcd4772
-
-Tip: view the complete command output by changing to the process work dir and entering the command `cat .command.out`</pre>
+          <div class="alert alert-success mb-4">
+              Workflow execution completed successfully!
           </div>
       
 
       <dl>
         <dt>Run times</dt>
         <dd>
-          <span id="workflow_start">03-Aug-2022 22:53:21</span> - <span id="workflow_complete">03-Aug-2022 22:53:23</span>
-          (<span id="completed_fromnow"></span>duration: <strong>2.1s</strong>)
+          <span id="workflow_start">04-Aug-2022 08:24:54</span> - <span id="workflow_complete">04-Aug-2022 09:12:51</span>
+          (<span id="completed_fromnow"></span>duration: <strong>47m 58s</strong>)
         </dd>
 
         <dl>
           <div class="progress" style="height: 1.6rem; margin: 1.2rem auto; border-radius: 0.20rem;">
-            <div style="width: 50.0%" class="progress-bar bg-success" data-toggle="tooltip" data-placement="top" title="1 tasks succeeded"><span class="text-truncate">&nbsp; 1 succeeded &nbsp;</span></div>
-            <div style="width: 0.0%" class="progress-bar bg-secondary" data-toggle="tooltip" data-placement="top" title="0 tasks were cached"><span class="text-truncate">&nbsp; 0 cached &nbsp;</span></div>
+            <div style="width: 99.99%" class="progress-bar bg-success" data-toggle="tooltip" data-placement="top" title="15002 tasks succeeded"><span class="text-truncate">&nbsp; 15002 succeeded &nbsp;</span></div>
+            <div style="width: 0.01%" class="progress-bar bg-secondary" data-toggle="tooltip" data-placement="top" title="2 tasks were cached"><span class="text-truncate">&nbsp; 2 cached &nbsp;</span></div>
             <div style="width: 0.0%" class="progress-bar bg-warning" data-toggle="tooltip" data-placement="top" title="0 tasks reported and error and were ignored"><span class="text-truncate">&nbsp; 0 ignored &nbsp;</span></div>
-            <div style="width: 50.0%" class="progress-bar bg-danger" data-toggle="tooltip" data-placement="top" title="1 tasks failed"><span class="text-truncate">&nbsp; 1 failed &nbsp;</span></div>
+            <div style="width: 0.0%" class="progress-bar bg-danger" data-toggle="tooltip" data-placement="top" title="0 tasks failed"><span class="text-truncate">&nbsp; 0 failed &nbsp;</span></div>
           </div>
         </dl>
 
         <dt>Nextflow command</dt>
-        <dd><pre class="nfcommand"><code>nextflow run prolonged_infection_suppfig2.nf</code></pre></dd>
+        <dd><pre class="nfcommand"><code>nextflow run prolonged_infection_suppfig2.nf -resume</code></pre></dd>
       </dl>
 
       <dl class="row small">
         <dt class="col-sm-3">CPU-Hours</dt>
-        <dd class="col-sm-9"><samp>(a few seconds)</samp></dd>
+        <dd class="col-sm-9"><samp>12.6 (64.1% cached)</samp></dd>
 
         <dt class="col-sm-3">Launch directory</dt>
         <dd class="col-sm-9"><samp>/Volumes/nrm_exp1/dholk_experiments/27537</samp></dd>
@@ -222,11 +194,11 @@ Tip: view the complete command output by changing to the process work dir and en
 
         
           <dt class="col-sm-3">Script ID</dt>
-          <dd class="col-sm-9"><code>ef774fdf3b99e8a9045d382267f4dc99</code></dd>
+          <dd class="col-sm-9"><code>7f18e7a0716ae26f89f3c5bdc8876d15</code></dd>
         
 
         <dt class="col-sm-3">Workflow session</dt>
-        <dd class="col-sm-9"><code>bef194f8-9d03-49e5-ad5e-d197fdc33a78</code></dd>
+        <dd class="col-sm-9"><code>f97f3ae2-1b9c-4bb4-b021-05b2c05c3dfe</code></dd>
 
         
 
@@ -1057,8 +1029,7 @@ $(function() {
 
 
   // Nextflow report data
-  window.data = { "trace":[
-{"task_id":"1","hash":"06\/b312ad","native_id":"95868","process":"PULL_METADATA","module":"-","container":"-","tag":"-","name":"PULL_METADATA","status":"COMPLETED","exit":"0","submit":"1659585203416","start":"1659585203486","complete":"1659585203634","duration":"218","realtime":"35","%cpu":"-","%mem":"-","rss":"-","vmem":"-","peak_rss":"-","peak_vmem":"-","rchar":"-","wchar":"-","syscr":"-","syscw":"-","read_bytes":"-","write_bytes":"-","attempt":"1","workdir":"\/Volumes\/nrm_exp1\/dholk_experiments\/27537\/work\/06\/b312ad45b6d82f7c3d5d723dd6118a","script":"\n\tif test -f \/Volumes\/nrm_exp1\/dholk_experiments\/27537\/resources\/include_list.csv; then\n\t\tcp \/Volumes\/nrm_exp1\/dholk_experiments\/27537\/resources\/include_list.csv .\n\telse\t\n\t\tdatasets summary virus genome taxon sars-cov-2 \t\t--complete-only \t\t--as-json-lines \t\t> sarscov2-metadata.jsonl\n\tfi\n\t","scratch":"-","queue":"-","cpus":"1","memory":"-","disk":"-","time":"-","env":"PATH=\/Volumes\/nrm_exp1\/dholk_experiments\/27537\/bin:$PATH\n","error_action":"-","vol_ctxt":"-","inv_ctxt":"-"},{"task_id":"2","hash":"ba\/414148","native_id":"95897","process":"REFORMAT_METADATA","module":"-","container":"-","tag":"-","name":"REFORMAT_METADATA","status":"FAILED","exit":"1","submit":"1659585203695","start":"1659585203736","complete":"1659585203890","duration":"195","realtime":"154","%cpu":"-","%mem":"-","rss":"-","vmem":"-","peak_rss":"-","peak_vmem":"-","rchar":"-","wchar":"-","syscr":"-","syscw":"-","read_bytes":"-","write_bytes":"-","attempt":"1","workdir":"\/Volumes\/nrm_exp1\/dholk_experiments\/27537\/work\/ba\/4141481cc98334cdec8f6d2fcd4772","script":"\n\tif test -f \/Volumes\/nrm_exp1\/dholk_experiments\/27537\/resources\/include_list.csv; then\n\t\tcp include_list.csv .\n\telse\n\t\tdataformat tsv virus-genome \t\t--fields accession,bioprojects,biosample-acc,geo-location,geo-region,host-organism-name,isolate-collection-date,length,nucleotide-completeness,release-date,sourcedb,sra-accs,virus-pangolin,virus-strain,virus-tax-id --inputfile sarscov2-metadata.jsonl > sarscov2-metadata.tsv\n\tfi\n\t","scratch":"-","queue":"-","cpus":"1","memory":"-","disk":"-","time":"-","env":"PATH=\/Volumes\/nrm_exp1\/dholk_experiments\/27537\/bin:$PATH\n","error_action":"TERMINATE","vol_ctxt":"-","inv_ctxt":"-"}], "summary":[{"cpuUsage":null,"process":"PULL_METADATA","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":35,"min":35,"q1":35,"q2":35,"q3":35,"max":35,"minLabel":"PULL_METADATA","maxLabel":"PULL_METADATA","q1Label":"PULL_METADATA","q2Label":"PULL_METADATA","q3Label":"PULL_METADATA"},"writes":null},{"cpuUsage":null,"process":"REFORMAT_METADATA","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":154,"min":154,"q1":154,"q2":154,"q3":154,"max":154,"minLabel":"REFORMAT_METADATA","maxLabel":"REFORMAT_METADATA","q1Label":"REFORMAT_METADATA","q2Label":"REFORMAT_METADATA","q3Label":"REFORMAT_METADATA"},"writes":null}] };
+  window.data = { "trace":null, "summary":[{"cpuUsage":null,"process":"PULL_METADATA","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":28160948,"min":28160948,"q1":28160948,"q2":28160948,"q3":28160948,"max":28160948,"minLabel":"PULL_METADATA","maxLabel":"PULL_METADATA","q1Label":"PULL_METADATA","q2Label":"PULL_METADATA","q3Label":"PULL_METADATA"},"writes":null},{"cpuUsage":null,"process":"REFORMAT_METADATA","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":925177,"min":925177,"q1":925177,"q2":925177,"q3":925177,"max":925177,"minLabel":"REFORMAT_METADATA","maxLabel":"REFORMAT_METADATA","q1Label":"REFORMAT_METADATA","q2Label":"REFORMAT_METADATA","q3Label":"REFORMAT_METADATA"},"writes":null},{"cpuUsage":null,"process":"SELECT_SUBSAMPLE","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":20005,"min":20005,"q1":20005,"q2":20005,"q3":20005,"max":20005,"minLabel":"SELECT_SUBSAMPLE","maxLabel":"SELECT_SUBSAMPLE","q1Label":"SELECT_SUBSAMPLE","q2Label":"SELECT_SUBSAMPLE","q3Label":"SELECT_SUBSAMPLE"},"writes":null},{"cpuUsage":null,"process":"PULL_FASTAS","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":986.54,"min":533,"q1":860.75,"q2":1010,"q3":1106,"max":3015,"minLabel":"PULL_FASTAS (OU347842.2)","maxLabel":"PULL_FASTAS (MW869063.1)","q1Label":"PULL_FASTAS (OM130142.1)","q2Label":"PULL_FASTAS (OM857730.1)","q3Label":"PULL_FASTAS (OM202213.1)"},"writes":null},{"cpuUsage":null,"process":"SUBSAMPLE_ALIGNMENT","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":81.63,"min":38,"q1":70,"q2":80,"q3":89,"max":184,"minLabel":"SUBSAMPLE_ALIGNMENT (OD918307.1)","maxLabel":"SUBSAMPLE_ALIGNMENT (MZ536564.1)","q1Label":"SUBSAMPLE_ALIGNMENT (MZ294992.1)","q2Label":"SUBSAMPLE_ALIGNMENT (OM513602.1)","q3Label":"SUBSAMPLE_ALIGNMENT (OM686181.1)"},"writes":null},{"cpuUsage":null,"process":"SUBSAMPLE_VARIANT_CALLING","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":543.61,"min":352,"q1":430,"q2":568,"q3":635,"max":1143,"minLabel":"SUBSAMPLE_VARIANT_CALLING (OU819388.1)","maxLabel":"SUBSAMPLE_VARIANT_CALLING (OL853279.1)","q1Label":"SUBSAMPLE_VARIANT_CALLING (OU029653.1)","q2Label":"SUBSAMPLE_VARIANT_CALLING (MZ343630.1)","q3Label":"SUBSAMPLE_VARIANT_CALLING (MW904616.1)"},"writes":null},{"cpuUsage":null,"process":"SUPP_FIGURE_2_PLOTTING","mem":null,"memUsage":null,"timeUsage":null,"vmem":null,"reads":null,"cpu":null,"time":{"mean":27297,"min":27297,"q1":27297,"q2":27297,"q3":27297,"max":27297,"minLabel":"SUPP_FIGURE_2_PLOTTING (1)","maxLabel":"SUPP_FIGURE_2_PLOTTING (1)","q1Label":"SUPP_FIGURE_2_PLOTTING (1)","q2Label":"SUPP_FIGURE_2_PLOTTING (1)","q3Label":"SUPP_FIGURE_2_PLOTTING (1)"},"writes":null}] };
 
   </script>
 
