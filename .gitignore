@@ -6,14 +6,8 @@ config/.DS_Store
 .nextflow/history
 .nova/
 work/
-data/*.vcf
-data/*.tsv
-data/*.tsv.gz
-data/*.tar.xz
-data/*.csv
-data/*.txt
-data/*.fasta
 
+*.vcf
 .Rhistory
 .next*
 .DS_Store
