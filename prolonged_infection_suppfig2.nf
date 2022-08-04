@@ -19,11 +19,6 @@ workflow {
 		.fromPath( params.include )
 		.ifEmpty( 'Accessions not yet selected' )
 	
-	ch_include = Channel
-		.fromPath( params.include )
-		.splitCsv ( header: true )
-		.map {row -> tuple(row.accession, row.date, row.pango)}
-	
 	
 	PULL_METADATA (	
 		ch_include_check
@@ -39,8 +34,12 @@ workflow {
 		REFORMAT_METADATA.out
 	)
 	
+	ARRANGE_INCLUDE_LIST ( )
+	
 	PULL_FASTAS (
-		ch_include
+		ARRANGE_INCLUDE_LIST.out
+			.splitCsv ( header: true )
+			.map {row -> tuple(row.accession, row.date, row.pango)}
 	)
 	
 	SUBSAMPLE_ALIGNMENT (
@@ -124,6 +123,19 @@ process SELECT_SUBSAMPLE {
 	"""
 	select_subsample.R ${tsv} ${params.subsample_size} \
 	${params.min_date} ${params.max_date}
+	"""
+	
+}
+
+
+process ARRANGE_INCLUDE_LIST { 
+	
+	output:
+	path("include_list.csv")
+	
+	script:
+	"""
+	cp ${params.include} .
 	"""
 	
 }
