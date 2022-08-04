@@ -1,0 +1,11 @@
+channels:
+  - conda-forge
+  - bioconda
+  - main
+  - r
+dependencies:
+  - R
+  - r-tidyverse
+  - ncbi-datasets-cli
+  - minimap2=2.24
+  - bbmap=38.93

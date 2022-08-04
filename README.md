@@ -21,7 +21,7 @@ chmod +x bin/*
 Next, build the Docker image that contains the workflow's dependencies:
 
 ```
-docker build --tag wisc-prolonged-infection:v1_0_1 config/
+docker build --tag prolonged-infection-suppfig2:v2_0_1 config/
 ```
 
 Note that to build the above docker container, you may need to increase the amount of memory allotted to Docker in the Docker Engine preferences.
@@ -76,7 +76,7 @@ The following runtime parameters have been set for the whole workflow:
 These parameters can be altered in the command line with a double-dash flag, like so:
 
 ```
-nextflow run prolonged_infection_workflow.nf --min_date "2020-07-01"
+nextflow run prolonged_infection_workflow.nf --min_date "2020-07-01" --max_date "2022-08-01" --random_sample_seed 7 --subsample_size 9999
 ```
 
 ## Workflow summary
