@@ -15,7 +15,7 @@ full_list <- full_list[full_list$Isolate.Collection.date >= min_date &
                          full_list$Isolate.Collection.date <= max_date,]
 
 # randomly sampling subset of accessions to pull from GenBank
-set.seed(14)
+set.seed(args[5])
 keepers <- sample(rownames(full_list), 
                  sample_size, 
                  replace = FALSE)

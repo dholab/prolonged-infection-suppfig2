@@ -108,7 +108,8 @@ process SELECT_SUBSAMPLE {
 		mv include_list_tmp.csv include_list.csv
 	else
 		select_subsample.R sarscov2-metadata.tsv \
-		${params.subsample_size} ${params.min_date} ${params.max_date}
+		${params.subsample_size} ${params.min_date} ${params.max_date} \
+		${params.random_sample_seed}
 	fi
 	rm -f sarscov2-metadata.tsv
 	"""
