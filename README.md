@@ -12,19 +12,9 @@ To run this workflow, simply `git clone` it into your working directory of choic
 git clone https://github.com/nrminor/prolonged-infection-suppfig2.git .
 ```
 
-Once the workflow bundle is in place, first ensure that the workflow scripts are executable, like so:
+Once the workflow bundle is in place, you may need to ensure that the workflow scripts are executable by running `chmod +x bin/*` in the command line.
 
-```
-chmod +x bin/*
-```
-
-Next, build the Docker image that contains the workflow's dependencies:
-
-```
-docker build --tag prolonged-infection-suppfig2:v2_0_1 config/
-```
-
-Note that to build the above docker container, you may need to increase the amount of memory allotted to Docker in the Docker Engine preferences.
+You will also need to install the Docker engine if you haven't already. The workflow pulls all the software it needs automatically from Docker Hub, which means you will never need to permanently install that software on your system. To install Docker, simply visit the Docker installation page at [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/).
 
 ### Nextflow Installation
 
