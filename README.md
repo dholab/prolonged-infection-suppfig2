@@ -66,7 +66,6 @@ The following runtime parameters have been set for the whole workflow:
 - `min_date` - the earliest date to display in the plot; default is September 1st, 2020. Dates specified here must be in "YYYY-mm-dd" format.
 - `max_date` - the latest date to display in the plot; default is February 1st, 2022. Dates specified here must be in "YYYY-mm-dd" format.
 - `refseq` - path to the SARS-CoV-2 reference sequence (GenBank Accession MN9089473.3)
-- `plotting_script` - path to the script that is run in the final step of the workflow, which generates the figure
 - `results` - path to default workflow output directory
 - `results_data_files` - path to a subdirectory of `results/` where data files like VCFs are placed.
 - `visuals` - path to a subdirectory of `results/` where graphics are stored. This is where the final supplementary figure 2 PDF is placed.
@@ -82,7 +81,7 @@ nextflow run prolonged_infection_workflow.nf --min_date "2020-07-01"
 Bundled together with the workflow are:
 
 - the SARS-CoV-2 Wuhan-1 sequence from GenBank Accession MN9089473.3 is in `resources/` and is called reference.fasta
-- the file `data/patient_variant_counts.csv` comes from the FIGURE_2A_PLOTTING process in the main workflow, which is available at the [GitHub repository for this project](https://github.com/dholab/E484T-visualizations/tree/main). In the future, the supplemental figure 2 workflow will be brought in as a subworkflow of the full manuscript algorithm.
+- the file `data/patient_variant_counts.csv` comes from the FIGURE_2A_PLOTTING process in the main workflow, which is available at the [GitHub repository for this project](https://github.com/dholab/E484T-visualizations/tree/main).
 
 ## Workflow summary
 
