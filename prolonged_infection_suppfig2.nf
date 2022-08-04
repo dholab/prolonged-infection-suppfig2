@@ -9,35 +9,26 @@ nextflow.enable.dsl = 2
 // Workflow specification
 workflow {
 
+
 	ch_patient_counts = Channel
 		.fromPath( params.patient_variants )
 
 	ch_palette = Channel
 		.fromPath( params.color_palette )
 	
-	ch_include_check = Channel
-		.fromPath( params.include )
-		.ifEmpty( 'Accessions not yet selected' )
 	
-	
-	PULL_METADATA (	
-		ch_include_check
-	)
+	PULL_METADATA (	)
 	
 	REFORMAT_METADATA (
-		ch_include_check,
 		PULL_METADATA.out
 	)
 	
 	SELECT_SUBSAMPLE (
-		ch_include_check,
 		REFORMAT_METADATA.out
 	)
 	
-	ARRANGE_INCLUDE_LIST ( )
-	
 	PULL_FASTAS (
-		ARRANGE_INCLUDE_LIST.out
+		SELECT_SUBSAMPLE.out
 			.splitCsv ( header: true )
 			.map {row -> tuple(row.accession, row.date, row.pango)}
 	)
@@ -62,21 +53,19 @@ workflow {
 // Defining each process in the workflow
 process PULL_METADATA {
 	
-	when:
-	include == 'Accessions not yet selected'
-	
-	input:
-	val(include_check)
-	
 	output:
-	path("sarscov2-metadata.jsonl")
+	path("*")
 	
 	script:
 	"""
-	datasets summary virus genome taxon sars-cov-2 \
-	--complete-only \
-	--as-json-lines \
-	> sarscov2-metadata.jsonl
+	if test -f ${params.include}; then
+		cp ${params.include} .
+	else	
+		datasets summary virus genome taxon sars-cov-2 \
+		--complete-only \
+		--as-json-lines \
+		> sarscov2-metadata.jsonl
+	fi
 	"""
 	
 }
@@ -86,20 +75,20 @@ process REFORMAT_METADATA {
 	
 	publishDir params.results_data_files
 	
-	when:
-	include == 'Accessions not yet selected'
-	
 	input:
-	val(include_check)
-	path(jsonl)
+	path(metadata)
 	
 	output:
-	path("*.tsv")
+	path("*")
 	
 	script:
 	"""
-	dataformat tsv virus-genome \
-	--fields accession,bioprojects,biosample-acc,geo-location,geo-region,host-organism-name,isolate-collection-date,length,nucleotide-completeness,release-date,sourcedb,sra-accs,virus-pangolin,virus-strain,virus-tax-id --inputfile ${jsonl} > sarscov2-metadata.tsv
+	if test -f ${params.include}; then
+		mv include_list.csv include_list_tmp.csv
+	else
+		dataformat tsv virus-genome \
+		--fields accession,bioprojects,biosample-acc,geo-location,geo-region,host-organism-name,isolate-collection-date,length,nucleotide-completeness,release-date,sourcedb,sra-accs,virus-pangolin,virus-strain,virus-tax-id --inputfile sarscov2-metadata.jsonl > sarscov2-metadata.tsv
+	fi
 	"""
 	
 }
@@ -109,33 +98,20 @@ process SELECT_SUBSAMPLE {
 	
 	publishDir params.refdir, mode: 'copy'
 	
-	when:
-	include == 'Accessions not yet selected'
-	
 	input:
-	val(include_check)
-	path(tsv)
+	path(metadata)
 	
 	output:
 	path("include_list.csv")
 	
 	script:
 	"""
-	select_subsample.R ${tsv} ${params.subsample_size} \
-	${params.min_date} ${params.max_date}
-	"""
-	
-}
-
-
-process ARRANGE_INCLUDE_LIST { 
-	
-	output:
-	path("include_list.csv")
-	
-	script:
-	"""
-	cp ${params.include} .
+	if test -f ${params.include}; then
+		mv include_list_tmp.csv include_list.csv
+	else
+		select_subsample.R sarscov2-metadata.tsv \
+		${params.subsample_size} ${params.min_date} ${params.max_date}
+	fi
 	"""
 	
 }
