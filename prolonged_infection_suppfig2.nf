@@ -169,8 +169,6 @@ process SUBSAMPLE_VARIANT_CALLING {
 
 	publishDir params.results_data_files, mode: "copy"
 
-	cpus 4
-
 	input:
 	tuple val(accession), path(sam)
 
@@ -182,7 +180,7 @@ process SUBSAMPLE_VARIANT_CALLING {
 
 	callvariants.sh \
 	in=${sam} out=${accession}.vcf.gz \
-	ref=${params.refseq} samstreamer=t ss=4 clearfilters \
+	ref=${params.refseq} samstreamer=t clearfilters \
 	ploidy=1 mincov=0 callsub=t calldel=f callins=f overwrite=t
 
 	gunzip ${accession}.vcf.gz
