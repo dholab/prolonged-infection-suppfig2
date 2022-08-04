@@ -1,6 +1,8 @@
 ## Overview
 
-This workflow was created to efficiently process and visualize data presented in Supplemental Figure 2 of [Halfmann et al. 2022, _Evolution of a globally unique SARS-CoV-2 Spike E484T monoclonal antibody escape mutation in a persistently infected, immunocompromised individual_](https://www.medrxiv.org/content/10.1101/2022.04.11.22272784v1). Consensus sequences and metadata were pulled from GenBank and are downloaded automatically in this workflow (see below).
+This workflow was created to efficiently process and visualize data presented in Supplemental Figure 2 of [Halfmann et al. 2022, _Evolution of a globally unique SARS-CoV-2 Spike E484T monoclonal antibody escape mutation in a persistently infected, immunocompromised individual_](https://www.medrxiv.org/content/10.1101/2022.04.11.22272784v1). Its purpose is to compare the viral evolution in one, long-term host with SARS-CoV-2's evolution worldwide, across all hosts. Ultimately, it shows that the virus can accrue a similar number of subsitutions within one, long-term host as it can across thousands of short-term hosts. In other words, the one persistently infecting virus we document in our manuscript was able to recapitulate global SARS-CoV-2 evolution within a single host.
+
+We pull all consensus sequences and metadata used in this figure from GenBank. If needed, the workflow can download these automatically; more on that below.
 
 ## Getting Started
 
@@ -31,7 +33,7 @@ This workflow uses the [NextFlow](https://www.nextflow.io/) workflow manager. We
 #### 1) Installation with Conda
 
 1. Install the miniconda python distribution, if you haven't already: [https://docs.conda.io/en/latest/miniconda.html](https://docs.conda.io/en/latest/miniconda.html)
-2. Install the `mamba` package installation tool in the command line:
+2. Install the `mamba` package installation tool in the command line, if not already installed:
    `conda install -y -c conda-forge mamba`
 3. Install Nextflow to your base environment:
    `mamba install -c bioconda nextflow `
@@ -56,14 +58,14 @@ If the workflow runs partway, but a computer outage or other issue interrupts it
 nextflow run prolonged_infection_suppfig2.nf -resume
 ```
 
-The workflow's configurations (see below) tell NextFlow to plot the workflow and record run statistics. However, the plot the workflow, note that NextFlow requires the package GraphViz, which is easiest to install via the intructions on [GraphViz's website](https://graphviz.org/download/).
+The workflow's configurations (see below) tell NextFlow to plot the workflow and record run statistics. However, to visualize the workflow itself in a [directed acyclic graph (DAG)](https://github.com/nrminor/prolonged-infection-suppfig2/blob/332cff270dafc8213b8135fc21feba2e711f5ce4/prolonged_infection_suppfig2_dag.png), note that NextFlow requires the package GraphViz, which is easiest to install via the intructions on [GraphViz's website](https://graphviz.org/download/).
 
 ### Configuration
 
 The following runtime parameters have been set for the whole workflow:
 
-- `subsample_size` - the number of SARS-CoV-2 samples to compare with the persistent infection in the final plot. We chose 5000 as our default, but this can be changed to any number as shown in the code block below. _NOTE:_ If you choose a number other than our default, the workflow will need to gather a new subsample from GenBank. To prompt it to do so, simply delete the file `include_list.csv` from the `resources/` directory. This process of pulling from GenBank may take as long as 2 days.
-- `min_date` - the earliest date to display in the plot; default is September 1st, 2020. Dates specified here must be in "YYYY-mm-dd" format.
+- `subsample_size` - the number of SARS-CoV-2 samples to compare with the persistent infection in the final plot. We chose 5000 as our default, but this can be changed to any number as shown in the code block below. _NOTE:_ If you choose a number other than our default, the workflow will need to gather a new subsample from GenBank. To prompt it to do so, simply delete the file `include_list.csv` from the `resources/` directory. This process of pulling data from GenBank generally takes 4 to 6 hours, but may take longer depending on your system.
+- `min_date` - the earliest date to display in the plot; our default is September 1st, 2020. Dates specified here must be in "YYYY-mm-dd" format. Specifying different dates makes it possible to use this workflow for cases other than that described in our manuscript.
 - `max_date` - the latest date to display in the plot; default is February 1st, 2022. Dates specified here must be in "YYYY-mm-dd" format.
 - `random_sample_seed` - A seed that determines which GenBank accessions are pseudo-randomly selected by the script `select_subsample.R`. Our default value for this seed is 14; changing this will result in a final figure that is not identical to the figure in our manuscript.
 - `refseq` - path to the SARS-CoV-2 reference sequence (GenBank Accession MN9089473.3), which is in the workflow subdirectory `resources/`
