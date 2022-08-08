@@ -110,8 +110,8 @@ process SELECT_SUBSAMPLE {
 		select_subsample.R sarscov2-metadata.tsv \
 		${params.subsample_size} ${params.min_date} ${params.max_date} \
 		${params.random_sample_seed}
+		rm -f sarscov2-metadata.tsv
 	fi
-	rm -f sarscov2-metadata.tsv
 	"""
 	
 }
@@ -120,6 +120,8 @@ process SELECT_SUBSAMPLE {
 process PULL_FASTAS {
 	
 	tag "${accession}"
+	
+	publishDir params.results_fasta
 	
 	cpus 1
 	
@@ -146,6 +148,10 @@ process SUBSAMPLE_ALIGNMENT {
 	// Aligning consensus sequences so that they are in sam format
 
 	tag "${accession}"
+	
+	publishDir params.results_sam
+	
+	cpus 1
 
 	input:
 	tuple val(accession), file(fasta)
@@ -167,7 +173,7 @@ process SUBSAMPLE_VARIANT_CALLING {
 
 	tag "${accession}"
 
-	publishDir params.results_data_files, mode: "copy"
+	publishDir params.results_vcf
 
 	input:
 	tuple val(accession), path(sam)

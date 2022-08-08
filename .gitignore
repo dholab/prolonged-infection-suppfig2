@@ -6,6 +6,7 @@ config/.DS_Store
 .nextflow/history
 .nova/
 work/
+work/fasta/
 
 *.vcf
 .Rhistory
