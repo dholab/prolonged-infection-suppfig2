@@ -62,7 +62,9 @@ The following runtime parameters have been set for the whole workflow:
 - `random_sample_seed` - A seed that determines which GenBank accessions are pseudo-randomly selected by the script `select_subsample.R`. Our default value for this seed is 14; changing this will result in a final figure that is not identical to the figure in our manuscript.
 - `refseq` - path to the SARS-CoV-2 reference sequence (GenBank Accession MN9089473.3), which is in the workflow subdirectory `resources/`
 - `results` - path to default workflow output directory
-- `results_data_files` - path to a subdirectory of `results/` where data files like VCFs are placed.
+- `results_fasta` - path to a subdirectory of `results/` where whole-genome consensus sequences for each GenBank accession are placed.
+- `results_sam` - path to a subdirectory of `results/` where SAM files are placed.
+- `results_vcf` - path to a subdirectory of `results/` where VCF files detailing the mutations in each sample are placed.
 - `visuals` - path to a subdirectory of `results/` where graphics are stored. This is where the final supplementary figure 2 PDF is placed.
 
 These parameters can be altered in the command line with a double-dash flag, like so:
@@ -95,7 +97,9 @@ Bundled together with the workflow are:
 
 - `results/visuals/figsupp2_global_roottotip_plot.pdf` is the final plot, which can be edited in Illustrator or other vector-graphic software
 - `results/{run date}.csv` is a table of all the GenBank accessions used in making the plot, along with when they were collected, how many mutations they have that separate them from Wuhan-1, and what pango lineage they are. This is essentially the dataset that is used to make Supplemental Figure 2.
-- `results/data/*.vcf` are all the VCFs generated to make the figure. By default, these files are not included in the git repository, but they will be generated if you run the workflow yourself.
+- `results/fasta/*.fasta` are all the FASTAs pulled from GenBank to make the figure. By default, these files are not included in the git repository, but they will be generated if you run the workflow yourself.
+- `results/sam/*.sam` are all the SAMs generated to make the figure. As above, these files are not included in the git repository, but they will be generated if you run the workflow yourself.
+- `results/vcf/*.vcf` are all the VCFs generated to make the figure. Again, these files are not included in the git repository, but they will be generated if you run the workflow yourself.
 
 ## For more information
 
