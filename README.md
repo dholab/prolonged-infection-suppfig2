@@ -12,7 +12,7 @@ If you already have Docker and NextFlow installed on your system, simply run the
 nextflow run nrminor/prolonged-infection-suppfig2
 ```
 
-If you do not have Docker and NextFlow installed, or want to tweak any of the default configurations in the workflow, proceed to the following sections.
+This command automatically pulls the workflow from GitHub and runs it. If you do not have Docker and NextFlow installed, or want to tweak any of the default configurations in the workflow, proceed to the following sections.
 
 ## Getting Started
 
