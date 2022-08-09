@@ -9,7 +9,7 @@ We pull all consensus sequences and metadata used in this figure from GenBank. I
 If you already have Docker and NextFlow installed on your system, simply run the following command in the directory of your choice:
 
 ```
-nextflow run nrminor/prolonged-infection-suppfig2
+nextflow run nrminor/prolonged-infection-suppfig2 -latest
 ```
 
 This command automatically pulls the workflow from GitHub and runs it. If you do not have Docker and NextFlow installed, or want to tweak any of the default configurations in the workflow, proceed to the following sections.
