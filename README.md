@@ -4,6 +4,16 @@ This workflow was created to efficiently process and visualize data presented in
 
 We pull all consensus sequences and metadata used in this figure from GenBank. If needed, the workflow can download these automatically; more on that below.
 
+## Quick Start
+
+If you already have Docker and NextFlow installed on your system, simply run the following command in the directory of your choice:
+
+```
+nextflow run nrminor/prolonged-infection-suppfig2
+```
+
+If you do not have Docker and NextFlow installed, or want to tweak any of the default configurations in the workflow, proceed to the following sections.
+
 ## Getting Started
 
 To run this workflow, simply `git clone` it into your working directory of choice, like so:
