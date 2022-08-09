@@ -94,9 +94,9 @@ Bundled together with the workflow are:
 ### Output files
 
 - `results/visuals/figsupp2_global_roottotip_plot.pdf` is the final plot, which can be edited in Illustrator or other vector-graphic software
-- `results/{run date}.csv` is a table of all the GenBank accessions used in making the plot, along with when they were collected, how many mutations they have that separate them from Wuhan-1, and what pango lineage they are. This is essentially the dataset that is used to make Supplemental Figure 2.
-- `results/subsample_seqs.fasta` - A FASTA file containing the consensus sequences for all GenBank accessions in the figure.
-- `results/data/*.vcf` are all the VCFs generated to make the figure. By default, these files are not included in the git repository, but they will be generated if you run the workflow yourself.
+- `results/{run date}.csv` is a table of all the GenBank accessions used in making the plot, along with when they were collected, how many mutations they have that separate them from Wuhan-1, and what pango lineage they are. This is the final dataset that is used to make Supplemental Figure 2.
+- `results/data/subsample_seqs.fasta.xz` - A compressed FASTA file containing the consensus sequences for all GenBank accessions in the figure.
+- `results/data/subsample_vcf_files.tar.xz` - a compressed bundle of all the VCFs generated to make the figure.
 
 ## For more information
 
