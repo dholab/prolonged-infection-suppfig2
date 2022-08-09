@@ -33,6 +33,10 @@ workflow {
 			.map {row -> tuple(row.accession, row.date, row.pango)}
 	)
 	
+	CONCAT_FASTAS (
+		PULL_FASTAS.out.collect()
+	)
+	
 	SUBSAMPLE_ALIGNMENT (
 		PULL_FASTAS.out
 	)
@@ -121,8 +125,6 @@ process PULL_FASTAS {
 	
 	tag "${accession}"
 	
-	publishDir params.results_fasta
-	
 	cpus 1
 	
 	input:
@@ -142,14 +144,29 @@ process PULL_FASTAS {
 	
 }
 
+process CONCAT_FASTAS {
+	
+	publishDir params.results, mode: 'move'
+	
+	input:
+	tuple val(accessions), path(fasta)
+	
+	output:
+	path("subsample_seqs.fasta")
+	
+	script:
+	"""
+	cat *.fasta > subsample_seqs.fasta
+	"""
+	
+}
+
 
 process SUBSAMPLE_ALIGNMENT {
 
 	// Aligning consensus sequences so that they are in sam format
 
 	tag "${accession}"
-	
-	publishDir params.results_sam
 	
 	cpus 1
 
@@ -173,7 +190,11 @@ process SUBSAMPLE_VARIANT_CALLING {
 
 	tag "${accession}"
 
-	publishDir params.results_vcf
+	publishDir params.results_data_files, mode: 'copy'
+	
+	time '1h'
+	errorStrategy 'retry'
+	maxRetries 10
 
 	input:
 	tuple val(accession), path(sam)

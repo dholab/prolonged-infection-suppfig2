@@ -1,12 +1,9 @@
 deprecated/
-results/data/
-config/.DS_Store
 .nextflow/cache/
 .nextflow/plr/
 .nextflow/history
 .nova/
 work/
-work/fasta/
 
 *.vcf
 .Rhistory
@@ -15,8 +12,6 @@ work/fasta/
 .nextflow.log*
 *fastq.gz
 *.sam
-*.bam
-*.bam.bai
 .nextflow.log.*
 prolonged_infection_suppfig2_dag.png.*
 report.html.*
