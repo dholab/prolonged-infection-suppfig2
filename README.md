@@ -16,13 +16,13 @@ This command automatically pulls the workflow from GitHub and runs it. If you do
 
 ## Detailed Instructions
 
-To run this workflow, simply `git clone` it into your working directory of choice, like so:
+To run this workflow, start by running `git clone` to bring the workflow files into your directory of choice, like so:
 
 ```
 git clone https://github.com/nrminor/prolonged-infection-suppfig2.git .
 ```
 
-Once the workflow bundle is in place, you may need to ensure that the workflow scripts are executable by running `chmod +x bin/*` in the command line.
+Once the workflow bundle is in place, you may need to double-check that the workflow scripts are executable by running `chmod +x bin/*` in the command line.
 
 You will also need to install the Docker engine if you haven't already. The workflow pulls all the software it needs automatically from Docker Hub, which means you will never need to permanently install that software on your system. To install Docker, simply visit the Docker installation page at [https://docs.docker.com/get-docker/](https://docs.docker.com/get-docker/).
 
@@ -60,7 +60,7 @@ If the workflow runs partway, but a computer outage or other issue interrupts it
 nextflow run prolonged_infection_suppfig2.nf -resume
 ```
 
-The workflow's configurations (see below) tell NextFlow to plot the workflow and record run statistics. However, to visualize the workflow itself in a [directed acyclic graph (DAG)](https://github.com/nrminor/prolonged-infection-suppfig2/blob/332cff270dafc8213b8135fc21feba2e711f5ce4/prolonged_infection_suppfig2_dag.png), note that NextFlow requires the package GraphViz, which is easiest to install via the intructions on [GraphViz's website](https://graphviz.org/download/).
+The workflow's configurations (see below) tell NextFlow to plot the workflow and record run statistics. However, to visualize the workflow itself in a [directed acyclic graph (DAG)](https://github.com/nrminor/prolonged-infection-suppfig2/blob/332cff270dafc8213b8135fc21feba2e711f5ce4/prolonged_infection_suppfig2_dag.png), NextFlow requires the package GraphViz, which is easiest to install via the intructions on [GraphViz's website](https://graphviz.org/download/). If you do not install GraphViz, the workflow will still run as expected, but will not produce a DAG png.
 
 ### Configuration
 
