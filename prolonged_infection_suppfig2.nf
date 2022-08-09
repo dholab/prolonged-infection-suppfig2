@@ -190,7 +190,7 @@ process SUBSAMPLE_VARIANT_CALLING {
 
 	tag "${accession}"
 
-	publishDir params.results_data_files, mode: 'copy'
+	// publishDir params.results_data_files, mode: 'copy'
 	
 	time '1h'
 	errorStrategy 'retry'
@@ -223,6 +223,7 @@ process SUPP_FIGURE_2_PLOTTING {
 
 	publishDir params.visuals, pattern: "*.pdf", mode: "move"
 	publishDir params.results, pattern: "*.csv", mode: "move"
+	publishDir params.results_data_files, pattern: "*.tar.gz", mode: 'move'
 
 	input:
 	path(vcf_list)
@@ -236,6 +237,7 @@ process SUPP_FIGURE_2_PLOTTING {
 	script:
 	"""
 	SupplementalFigure2_global_roottotip_plot.R "." "${params.include}"
+	tar -czf subsample_vcf_files.tar.gz *.vcf
 	"""
 
 }
