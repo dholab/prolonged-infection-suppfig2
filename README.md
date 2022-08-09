@@ -14,7 +14,7 @@ nextflow run nrminor/prolonged-infection-suppfig2 -latest
 
 This command automatically pulls the workflow from GitHub and runs it. If you do not have Docker and NextFlow installed, or want to tweak any of the default configurations in the workflow, proceed to the following sections.
 
-## Getting Started
+## Detailed Instructions
 
 To run this workflow, simply `git clone` it into your working directory of choice, like so:
 
