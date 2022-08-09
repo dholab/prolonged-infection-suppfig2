@@ -34,7 +34,9 @@ workflow {
 	)
 	
 	CONCAT_FASTAS (
-		PULL_FASTAS.out.collect()
+		PULL_FASTAS.out
+			.map { accession, fasta -> fasta}
+			.collect()
 	)
 	
 	SUBSAMPLE_ALIGNMENT (
@@ -43,6 +45,10 @@ workflow {
 	
 	SUBSAMPLE_VARIANT_CALLING (
 		SUBSAMPLE_ALIGNMENT.out
+	)
+	
+	TAR_VCFS (
+		SUBSAMPLE_VARIANT_CALLING.out.collect()
 	)
 
 	SUPP_FIGURE_2_PLOTTING (
@@ -146,17 +152,17 @@ process PULL_FASTAS {
 
 process CONCAT_FASTAS {
 	
-	publishDir params.results, mode: 'move'
+	publishDir params.results_data_files, mode: 'move'
 	
 	input:
-	tuple val(accessions), path(fasta)
+	path(fastas)
 	
 	output:
-	path("subsample_seqs.fasta")
+	path("subsample_seqs.fasta.xz")
 	
 	script:
 	"""
-	cat *.fasta > subsample_seqs.fasta
+	cat *.fasta | xz -9 -c - > subsample_seqs.fasta.xz
 	"""
 	
 }
@@ -189,8 +195,6 @@ process SUBSAMPLE_VARIANT_CALLING {
 	// calling single-nucleotide variants from each genbank sequence
 
 	tag "${accession}"
-
-	// publishDir params.results_data_files, mode: 'copy'
 	
 	time '1h'
 	errorStrategy 'retry'
@@ -217,13 +221,30 @@ process SUBSAMPLE_VARIANT_CALLING {
 }
 
 
+process TAR_VCFS {
+	
+	publishDir params.results_data_files, pattern: "*.tar.xz", mode: "move"
+	
+	input:
+	path(vcfs)
+	
+	output:
+	path("subsample_vcf_files.tar.xz")
+	
+	script:
+	"""
+	tar -I 'xz -9' -chf subsample_vcf_files.tar.xz ${vcfs}
+	"""
+	
+}
+
+
 process SUPP_FIGURE_2_PLOTTING {
 
 	// counts variants for each genbank sequence and plots the figure
 
 	publishDir params.visuals, pattern: "*.pdf", mode: "move"
 	publishDir params.results, pattern: "*.csv", mode: "move"
-	publishDir params.results_data_files, pattern: "*.tar.gz", mode: 'move'
 
 	input:
 	path(vcf_list)
@@ -237,7 +258,6 @@ process SUPP_FIGURE_2_PLOTTING {
 	script:
 	"""
 	SupplementalFigure2_global_roottotip_plot.R "." "${params.include}"
-	tar -czf subsample_vcf_files.tar.gz *.vcf
 	"""
 
 }
