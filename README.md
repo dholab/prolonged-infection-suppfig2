@@ -64,7 +64,7 @@ The workflow's configurations (see below) tell NextFlow to plot the workflow and
 
 ### Configuration
 
-The following runtime parameters have been set for the whole workflow:
+The following runtime parameters have been set for the whole workflow in the file `nextflow.config`:
 
 - `subsample_size` - the number of SARS-CoV-2 samples to compare with the persistent infection in the final plot. We chose 5000 as our default, but this can be changed to any number as shown in the code block below. _NOTE:_ If you choose a number other than our default, the workflow will need to gather a new subsample from GenBank. To prompt it to do so, simply delete the file `include_list.csv` from the `resources/` directory. This process of pulling data from GenBank generally takes 4 to 6 hours, but may take longer depending on your system.
 - `min_date` - the earliest date to display in the plot; our default is September 1st, 2020. Dates specified here must be in "YYYY-mm-dd" format. Specifying different dates makes it possible to use this workflow for cases other than that described in our manuscript.
