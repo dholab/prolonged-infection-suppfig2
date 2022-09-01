@@ -9,7 +9,7 @@ We pull all consensus sequences and metadata used in this figure from GenBank. I
 If you already have Docker and NextFlow installed on your system, simply run the following command in the directory of your choice:
 
 ```
-nextflow run nrminor/prolonged-infection-suppfig2 -latest
+nextflow run dholab/prolonged-infection-suppfig2 -latest
 ```
 
 This command automatically pulls the workflow from GitHub and runs it. If you do not have Docker and NextFlow installed, or want to tweak any of the default configurations in the workflow, proceed to the following sections.
@@ -19,7 +19,7 @@ This command automatically pulls the workflow from GitHub and runs it. If you do
 To run this workflow, start by running `git clone` to bring the workflow files into your directory of choice, like so:
 
 ```
-git clone https://github.com/nrminor/prolonged-infection-suppfig2.git .
+git clone https://github.com/dholab/prolonged-infection-suppfig2.git .
 ```
 
 Once the workflow bundle is in place, you may need to double-check that the workflow scripts are executable by running `chmod +x bin/*` in the command line.
@@ -110,4 +110,4 @@ Bundled together with the workflow are:
 
 ## For more information
 
-This workflow was created by Nicholas R. Minor. To report any issues, please visit the [GitHub repository for this project](https://github.com/nrminor/prolonged-infection-suppfig2).
+This workflow was created by Nicholas R. Minor. To report any issues, please visit the [GitHub repository for this project](https://github.com/dholab/prolonged-infection-suppfig2).
